@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Shop | Products</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container">
+    <h1>E-Shop</h1>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container page-section">
+  <h2>All Products</h2>
+  <div class="catalog-toolbar">
+    <input id="search" class="search-input" onkeyup="searchProducts()" placeholder="Search products...">
+    <select id="category-filter" class="category-filter" onchange="applyProductFilters()">
+      <option value="all">All Categories</option>
+    </select>
+  </div>
+  <div id="products-container" class="product-grid"></div>
+</main>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

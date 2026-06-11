@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Shop | Product Details</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <h1>E-Shop</h1>
+    </div>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+  </div>
+</header>
+
+<main class="product-detail">
+  <div class="container">
+    <div id="productDetails" class="product-container"></div>
+
+    <section class="reviews">
+      <h3>Customer Reviews</h3>
+      <div class="review-item">
+        <p><strong>Rahul:</strong> Amazing sound quality and fast delivery.</p>
+      </div>
+      <div class="review-item">
+        <p><strong>Ankit:</strong> Great value for the price.</p>
+      </div>
+    </section>
+
+    <section class="recommended-section">
+      <h3>Recommended For You</h3>
+      <p id="recommendation-copy" class="section-copy">Similar products you may also like.</p>
+      <div id="recommendations" class="product-grid"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 E-Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

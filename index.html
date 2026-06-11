@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Shop | Home</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <img src="images/logo.png" class="logo-img" alt="E-Shop logo">
+    </div>
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h2>Welcome to Our Store</h2>
+    <p>Discover amazing products at the best prices.</p>
+    <a href="products.html" class="btn btn-link">Shop Now</a>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="container">
+    <h2>Categories</h2>
+    <div class="category-grid">
+      <a href="products.html?category=Electronics" class="category-card">Electronics</a>
+      <a href="products.html?category=Clothing" class="category-card">Clothing</a>
+      <a href="products.html?category=Books" class="category-card">Books</a>
+    </div>
+  </div>
+</section>
+
+<section class="featured-products">
+  <div class="container">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="images/headphones.jpg" class="product-img" alt="Wireless Headphones">
+        <h3>Wireless Headphones</h3>
+        <p class="price">&#8377;1999</p>
+        <button class="btn" onclick="addToCart(1)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/watch.jpg" class="product-img" alt="Smart Watch">
+        <h3>Smart Watch</h3>
+        <p class="price">&#8377;3499</p>
+        <button class="btn" onclick="addToCart(2)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/speaker.jpg" class="product-img" alt="Bluetooth Speaker">
+        <h3>Bluetooth Speaker</h3>
+        <p class="price">&#8377;1499</p>
+        <button class="btn" onclick="addToCart(3)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/jacket.jpg" class="product-img" alt="Winter Jacket">
+        <h3>Winter Jacket</h3>
+        <p class="price">&#8377;2499</p>
+        <button class="btn" onclick="addToCart(10)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/shoes.jpg" class="product-img" alt="Running Shoes">
+        <h3>Running Shoes</h3>
+        <p class="price">&#8377;1999</p>
+        <button class="btn" onclick="addToCart(11)">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="images/pythonbook.jpg" class="product-img" alt="Python Programming Book">
+        <h3>Python Programming Book</h3>
+        <p class="price">&#8377;699</p>
+        <button class="btn" onclick="addToCart(26)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="recommended-section">
+  <div class="container">
+    <h2>Recommended For You</h2>
+    <p id="home-recommendation-copy" class="section-copy">Popular picks based on what shoppers love.</p>
+    <div id="home-recommendations" class="product-grid"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 E-Shop. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
