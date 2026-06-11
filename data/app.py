@@ -2,12 +2,15 @@ from pathlib import Path
 from flask import Flask, jsonify, request, send_from_directory
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+from auth import auth_bp
+from database import init_db
 import base64
 import hashlib
 import hmac
 import json
 import os
 import uuid
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = PROJECT_ROOT / "data" / "products.json"
@@ -16,6 +19,11 @@ RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "")
 RAZORPAY_ORDERS_URL = "https://api.razorpay.com/v1/orders"
 
 app = Flask(__name__, static_folder=None)
+
+app.secret_key = "ecommerce_secret_key"
+init_db()
+
+app.register_blueprint(auth_bp)
 pending_orders = {}
 
 
@@ -132,26 +140,6 @@ def get_recommendations():
         return jsonify({"error": "Product id is required"}), 400
 
     return jsonify(recommend_products(product_id))
-
-
-@app.route("/api/login", methods=["POST"])
-def login():
-    payload = request.get_json(silent=True) or {}
-    email = (payload.get("email") or "").strip()
-    password = payload.get("password") or ""
-
-    if not email or not password:
-        return jsonify({"success": False, "message": "Email and password are required."}), 400
-
-    user_name = email.split("@")[0].replace(".", " ").title() or "Shopper"
-
-    return jsonify(
-        {
-            "success": True,
-            "message": f"Welcome back, {user_name}.",
-            "user": {"name": user_name, "email": email},
-        }
-    )
 
 
 @app.route("/api/payments/create-order", methods=["POST"])

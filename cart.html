@@ -11,32 +11,92 @@
 
 <header class="header">
   <div class="container">
-    <h1>E-Shop</h1>
+    <div class="logo">
+      <img src="images/logo.png" class="logo-img" alt="E-Shop logo">
+    </div>
+
     <nav class="navbar">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
-      <a href="login.html">Login</a>
-      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+
+      <span id="guest-links">
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      </span>
+
+      <span id="user-links" style="display:none;">
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </span>
+
+      <a href="cart.html">
+        Cart (<span id="cart-count">0</span>)
+      </a>
     </nav>
   </div>
 </header>
 
 <main class="container">
   <h2>Your Shopping Cart</h2>
+
   <div id="cart-items"></div>
+
   <h3>Total: &#8377;<span id="total">0</span></h3>
-  <button id="checkout-button" class="btn checkout-button" type="button" onclick="payWithRazorpay()">Pay with Razorpay</button>
+
+  <button id="checkout-button" class="btn checkout-button" type="button" onclick="payWithRazorpay()">
+    Pay with Razorpay
+  </button>
+
   <p id="checkout-message" class="checkout-message"></p>
 
   <section class="recommended-section">
     <h3>You May Also Like</h3>
-    <p id="cart-recommendation-copy" class="section-copy">Suggestions to complete your order.</p>
+    <p id="cart-recommendation-copy" class="section-copy">
+      Suggestions to complete your order.
+    </p>
     <div id="cart-recommendations" class="product-grid"></div>
   </section>
 </main>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="js/script.js"></script>
+
+<!-- AUTH NAVBAR SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = localStorage.getItem("user");
+
+    const guestLinks = document.getElementById("guest-links");
+    const userLinks = document.getElementById("user-links");
+
+    if (user) {
+
+        if (guestLinks) guestLinks.style.display = "none";
+        if (userLinks) userLinks.style.display = "inline";
+
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async function (e) {
+                e.preventDefault();
+
+                try {
+                    await fetch("/api/logout", {
+                        method: "POST",
+                        credentials: "include"
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+
+                localStorage.removeItem("user");
+                window.location.href = "login.html";
+            });
+        }
+    }
+});
+</script>
 
 </body>
 </html>

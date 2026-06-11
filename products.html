@@ -12,12 +12,22 @@
 <header class="header">
   <div class="container">
     <h1>E-Shop</h1>
-    <nav class="navbar">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="login.html">Login</a>
-      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-    </nav>
+   <nav class="navbar">
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+
+  <span id="guest-links">
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+  </span>
+
+  <span id="user-links" style="display:none;">
+    <a href="profile.html">Profile</a>
+    <a href="#" id="logoutBtn">Logout</a>
+  </span>
+
+  <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+</nav>
   </div>
 </header>
 
@@ -31,6 +41,42 @@
   </div>
   <div id="products-container" class="product-grid"></div>
 </main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = localStorage.getItem("user");
+
+    const guestLinks = document.getElementById("guest-links");
+    const userLinks = document.getElementById("user-links");
+
+    if (user) {
+
+        guestLinks.style.display = "none";
+        userLinks.style.display = "inline";
+
+        document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async function (e) {
+
+            e.preventDefault();
+
+            try {
+                await fetch("/api/logout", {
+                    method: "POST",
+                    credentials: "include"
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
+            localStorage.removeItem("user");
+
+            window.location.href = "login.html";
+        });
+    }
+});
+</script>
 
 <script src="js/script.js"></script>
 
