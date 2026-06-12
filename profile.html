@@ -1,132 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Shop | Profile</title>
-<link rel="stylesheet" href="css/style.css">
-<style>
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Shop | Profile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-section.hero {
-    flex: 1;
-}
+      section.hero {
+        flex: 1;
+      }
 
-.footer {
-    margin-top: auto;
-}
-</style>
-</head>
-<body>
+      .footer {
+        margin-top: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" class="logo-img" alt="E-Shop logo" />
+        </div>
 
-<header class="header">
-  <div class="container">
+        <nav class="navbar">
+          <a href="index.html">Home</a>
+          <a href="products.html">Products</a>
 
-    <div class="logo">
-      <img src="images/logo.png" class="logo-img" alt="E-Shop logo">
-    </div>
+          <span id="guest-links">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+          </span>
 
-   
-    <nav class="navbar">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
+          <span id="user-links" style="display: none">
+            <a href="profile.html">Profile</a>
+            <a href="#" id="logoutBtn">Logout</a>
+          </span>
 
-      <span id="guest-links">
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-      </span>
+          <a href="cart.html"> Cart (<span id="cart-count">0</span>) </a>
+        </nav>
+      </div>
+    </header>
 
-      <span id="user-links" style="display:none;">
-        <a href="profile.html">Profile</a>
-        <a href="#" id="logoutBtn">Logout</a>
-      </span>
+    <section class="hero">
+      <div class="container">
+        <div class="auth-card">
+          <h2>Profile</h2>
 
-      <a href="cart.html">
-        Cart (<span id="cart-count">0</span>)
-      </a>
-    </nav>
+          <h3 id="userName">Name:</h3>
 
-  </div>
-</header>
+          <h3 id="userEmail">Email:</h3>
 
-<section class="hero">
-  <div class="container">
+          <button class="btn" id="logoutBtn2">Logout</button>
+        </div>
+      </div>
+    </section>
 
-    <div class="auth-card">
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 E-Shop. All rights reserved.</p>
+      </div>
+    </footer>
 
-      <h2>My Profile</h2>
+    <script>
+      async function loadProfile() {
+        const response = await fetch("/api/profile", {
+          credentials: "include",
+        });
 
-      <h3 id="userName">Loading...</h3>
+        const data = await response.json();
 
-      <p id="userEmail"></p>
+        if (!response.ok) {
+          alert("Please login first");
+          window.location.href = "login.html";
+          return;
+        }
 
-      <button class="btn" id="logoutBtn2">
-        Logout
-      </button>
+        document.getElementById("userName").innerText = "Name: " + data.name;
+        document.getElementById("userEmail").innerText = "Email: " + data.email;
+      }
 
-    </div>
+      async function logout() {
+        await fetch("/api/logout", {
+          method: "POST",
+          credentials: "include",
+        });
 
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2026 E-Shop. All rights reserved.</p>
-  </div>
-</footer>
-
-<script>
-async function loadProfile(){
-
-    const response = await fetch("/api/profile", {
-        credentials: "include"
-    });
-
-    const data = await response.json();
-
-    if(!response.ok){
-        alert("Please login first");
+        localStorage.removeItem("user");
         window.location.href = "login.html";
-        return;
-    }
+      }
 
-    document.getElementById("userName").innerText = data.name;
-    document.getElementById("userEmail").innerText = data.email;
-}
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+      document.getElementById("logoutBtn2").addEventListener("click", logout);
 
-async function logout(){
+      document.addEventListener("DOMContentLoaded", function () {
+        const user = localStorage.getItem("user");
 
-    await fetch("/api/logout", {
-        method: "POST",
-        credentials: "include"
-    });
+        const guestLinks = document.getElementById("guest-links");
+        const userLinks = document.getElementById("user-links");
 
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
-}
+        if (user) {
+          if (guestLinks) guestLinks.style.display = "none";
+          if (userLinks) userLinks.style.display = "inline";
+        }
+      });
 
-document.getElementById("logoutBtn").addEventListener("click", logout);
-document.getElementById("logoutBtn2").addEventListener("click", logout);
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const user = localStorage.getItem("user");
-
-    const guestLinks = document.getElementById("guest-links");
-    const userLinks = document.getElementById("user-links");
-
-    if(user){
-        if(guestLinks) guestLinks.style.display = "none";
-        if(userLinks) userLinks.style.display = "inline";
-    }
-});
-
-loadProfile();
-</script>
-
-</body>
+      loadProfile();
+    </script>
+  </body>
 </html>
