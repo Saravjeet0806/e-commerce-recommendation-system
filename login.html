@@ -14,11 +14,23 @@
       <img src="images/logo.png" class="logo-img" alt="E-Shop logo">
     </div>
 
-    <nav class="navbar">
+      <nav class="navbar">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
-      <a href="register.html">Register</a>
-      <a href="cart.html">Cart</a>
+
+      <span id="guest-links">
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+      </span>
+
+      <span id="user-links" style="display:none;">
+        <a href="profile.html">Profile</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </span>
+
+      <a href="cart.html">
+        Cart (<span id="cart-count">0</span>)
+      </a>
     </nav>
   </div>
 </header>
