@@ -17,7 +17,9 @@
     <nav class="navbar">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
-
+      <a href="cart.html">
+        Cart (<span id="cart-count">0</span>)
+      </a>
       <span id="guest-links">
         <a href="login.html">Login</a>
         <a href="register.html">Register</a>
@@ -28,9 +30,7 @@
         <a href="#" id="logoutBtn">Logout</a>
       </span>
 
-      <a href="cart.html">
-        Cart (<span id="cart-count">0</span>)
-      </a>
+      
     </nav>
   </div>
 </header>
@@ -116,6 +116,41 @@
     <p>&copy; 2026 E-Shop. All rights reserved.</p>
   </div>
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = localStorage.getItem("user");
+
+    const guestLinks = document.getElementById("guest-links");
+    const userLinks = document.getElementById("user-links");
+
+    if (user) {
+
+        guestLinks.style.display = "none";
+        userLinks.style.display = "inline";
+
+        document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async function (e) {
+
+            e.preventDefault();
+
+            try {
+                await fetch("/api/logout", {
+                    method: "POST",
+                    credentials: "include"
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
+            localStorage.removeItem("user");
+
+            window.location.href = "login.html";
+        });
+    }
+});
+</script>
 
 <script src="js/script.js"></script>
 
